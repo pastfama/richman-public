@@ -54,10 +54,14 @@ tasks:
       sets sv_projectName "Richman"
       sets sv_projectDesc "Русскоязычный живой город на GTA V Enhanced."
       sets tags "roleplay, russian, rp, enhanced, foundry-agents"
-      setr richman_locale "ru-RU"
 
       # GTA V Enhanced baseline used by Richman.
       sv_enforceGameBuild 3407
+
+      # NOTE: the city's language is NOT a convar. It is Config.Locale in
+      # resources/[la]/la_npc_ai/config.lua (set to 'ru-RU' on the Richman copy),
+      # plus BRIDGE_LOCALE=ru-RU in npc-bridge.env and TOWN_LOCALE=ru-RU in
+      # town.env. See docs/locale.md. A `setr` here would do nothing.
 
       # Server administration. txAdmin supplies the master account principal.
       add_ace group.admin command allow
