@@ -1,8 +1,10 @@
 # Richman — txAdmin custom template
 
 This small public repository contains the txAdmin recipe for the Richman
-Russian-language GTA V Enhanced server. It installs a minimal Cfx baseline and
-sets game build 3407. It does not include the private Qbox/ox gameplay pack,
+Russian-language GTA V Enhanced server. It installs a minimal Cfx baseline on
+the **Cfx Server** runtime (`cfx-server`, "FiveM for GTAV Enhanced") and leaves
+the game build at the latest — the only build the Enhanced runtime supports. It
+does not include the private Qbox/ox gameplay pack,
 personal-agent resource, player data, bridge implementation, or credentials.
 
 ## Import into txAdmin

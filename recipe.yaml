@@ -55,8 +55,12 @@ tasks:
       sets sv_projectDesc "Русскоязычный живой город на GTA V Enhanced."
       sets tags "roleplay, russian, rp, enhanced, foundry-agents"
 
-      # GTA V Enhanced baseline used by Richman.
-      sv_enforceGameBuild 3407
+      # NO sv_enforceGameBuild here, deliberately. This recipe targets the Cfx
+      # Server runtime ("FiveM for GTAV Enhanced", the fat `cfx-server` binary);
+      # Enhanced supports only the latest game build and loads it by default,
+      # and a pinned older build is rejected outright. The runtime binary is what
+      # makes a server Enhanced — sv_enhancedHostSupport is a documented no-op
+      # and no convar converts a Legacy FXServer install. Do not add a pin back.
 
       # NOTE: the city's language is NOT a convar. It is Config.Locale in
       # resources/[la]/la_npc_ai/config.lua (set to 'ru-RU' on the Richman copy),
