@@ -1,0 +1,69 @@
+$engine: 3
+$onesync: on
+name: Richman Enhanced Bootstrap
+version: 1.0.0
+author: Fameshire
+description: Minimal Russian-language GTA V Enhanced baseline for Richman. No legacy NPC resources are installed.
+
+tasks:
+  # Use the official Enhanced-compatible Cfx base resources.
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    ref: master
+    subpath: resources
+    dest: ./tmp
+
+  - action: ensure_dir
+    path: ./resources
+
+  - action: move_path
+    src: ./tmp/[managers]/mapmanager/
+    dest: ./resources/mapmanager/
+
+  - action: move_path
+    src: ./tmp/[managers]/spawnmanager/
+    dest: ./resources/spawnmanager/
+
+  - action: move_path
+    src: ./tmp/[gamemodes]/[maps]/fivem-map-hipster/
+    dest: ./resources/fivem-map-hipster/
+
+  - action: move_path
+    src: ./tmp/[gamemodes]/[maps]/fivem-map-skater/
+    dest: ./resources/fivem-map-skater/
+
+  - action: move_path
+    src: ./tmp/[gamemodes]/basic-gamemode/
+    dest: ./resources/basic-gamemode/
+
+  - action: remove_path
+    path: ./tmp
+
+  # txAdmin substitutes its required placeholders after recipe tasks complete.
+  - action: write_file
+    file: ./server.cfg
+    data: |
+      # Richman — Russian-language GTA V Enhanced baseline.
+      # No Qbox, legacy NPC simulation, or non-personal Foundry agents are deployed.
+      sv_licenseKey "{{svLicense}}"
+      sv_hostname "Richman | Живой Город RP"
+      sv_maxclients {{maxClients}}
+      {{serverEndpoints}}
+
+      sets sv_projectName "Richman"
+      sets sv_projectDesc "Русскоязычный живой город на GTA V Enhanced."
+      sets tags "roleplay, russian, rp, enhanced, foundry-agents"
+
+      # GTA V Enhanced baseline used by Richman.
+      sv_enforceGameBuild 3407
+
+      # Server administration. txAdmin supplies the master account principal.
+      add_ace group.admin command allow
+      add_ace group.admin command.quit deny
+      {{addPrincipalsMaster}}
+
+      ensure mapmanager
+      ensure spawnmanager
+      ensure basic-gamemode
+      ensure fivem-map-hipster
+      ensure fivem-map-skater
