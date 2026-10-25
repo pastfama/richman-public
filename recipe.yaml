@@ -3,7 +3,7 @@ $onesync: on
 name: Richman Enhanced Bootstrap
 version: 1.0.0
 author: Fameshire
-description: Minimal Russian-language GTA V Enhanced baseline for Richman. No legacy NPC resources are installed.
+description: Russian-language GTA V Enhanced bootstrap; the private Richman gameplay and Foundry bridge stack is installed separately.
 
 tasks:
   # Use the official Enhanced-compatible Cfx base resources.
@@ -44,7 +44,8 @@ tasks:
     file: ./server.cfg
     data: |
       # Richman — Russian-language GTA V Enhanced baseline.
-      # No Qbox, legacy NPC simulation, or non-personal Foundry agents are deployed.
+      # Recipe manages the base tree only. Apply the private Richman stack after
+      # the database, txAdmin profile, and bridge secrets have been provisioned.
       sv_licenseKey "{{svLicense}}"
       sv_hostname "Richman | Живой Город RP"
       sv_maxclients {{maxClients}}
@@ -53,6 +54,7 @@ tasks:
       sets sv_projectName "Richman"
       sets sv_projectDesc "Русскоязычный живой город на GTA V Enhanced."
       sets tags "roleplay, russian, rp, enhanced, foundry-agents"
+      setr richman_locale "ru-RU"
 
       # GTA V Enhanced baseline used by Richman.
       sv_enforceGameBuild 3407
@@ -61,9 +63,12 @@ tasks:
       add_ace group.admin command allow
       add_ace group.admin command.quit deny
       {{addPrincipalsMaster}}
+      add_ace group.admin la_foundry_agents.admin allow
 
       ensure mapmanager
       ensure spawnmanager
       ensure basic-gamemode
       ensure fivem-map-hipster
       ensure fivem-map-skater
+      # The private deployment overlay switches to the Richman gameplay pack.
+      # This public bootstrap intentionally does not claim to install that pack.
